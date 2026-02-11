@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Mi Enamorada 💖🌻</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #ffe6f2 10%, #fff7e6 50%, #ffd6d6 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 30px 0;
+      color: #d6336c;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      animation: shine 3s infinite linear;
+      z-index: 3;
+    }
+
+    @keyframes shine {
+      0% { text-shadow: 0 0 10px #ff99cc; }
+      50% { text-shadow: 0 0 20px #ff3366; }
+      100% { text-shadow: 0 0 10px #ff99cc; }
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1000px;
+      width: 90%;
+      margin-bottom: 40px;
+      z-index: 2;
+    }
+
+    .card {
+      perspective: 1000px;
+      flex: 1 1 250px;
+      max-width: 280px;
+      position: relative;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      padding-top: 125%;
+      transition: transform 1s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    /* SOLO tarjetas normales giran con hover */
+    .card:not(#lockedCard):not(#lockedCard4):hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Todas giran si tienen la clase .flipped */
+    .card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      backface-visibility: hidden;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .card-front {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-back {
+      background: #ffe066;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotateY(180deg);
+      font-size: 1.3rem;
+      padding: 20px;
+      font-weight: bold;
+      color: #4d2600;
+      text-align: center;
+    }
+
+    .locked-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.9);
+      color: #b23a5b;
+      padding: 6px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      z-index: 5;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #6c757d;
+      z-index: 3;
+    }
+
+    /* Modal clave */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+
+    .modal {
+      width: 320px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    .modal input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .modal button {
+      margin-top: 12px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: none;
+      background: #d6336c;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .modal .hint {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 8px;
+    }
+
+    /* Pregunta especial */
+    #specialCard {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fffbea;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      padding: 40px;
+      text-align: center;
+      z-index: 100;
+      width: 400px;
+      max-width: 90%;
+    }
+
+    #specialCard h2 {
+      color: #b23a5b;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    #specialCard button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    #btnSi {
+      background: #d6336c;
+      color: white;
+      font-weight: bold;
+    }
+
+    #btnNo {
+      background: #666;
+      color: white;
+      position: relative;
+    }
+
+    /* Corazones explosivos */
+    .explosion-heart {
+      position: fixed;
+      font-size: 24px;
+      animation: explode 1s forwards;
+      z-index: 200;
+    }
+
+    @keyframes explode {
+      from { transform: scale(0) translate(0,0); opacity: 1; }
+      to { transform: scale(2) translate(var(--x), var(--y)); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Gíralos🌻💖</h1>
+
+  <!-- Música -->
+  <audio id="bg-music" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container">
+    <!-- Tarjetas normales -->
+    <div class="card"><div class="card-inner">
+      <div class="card-front"><img src="foto1.jpg"></div>
+      <div class="card-back">Siempre serás mi razón de sonreír 💕</div>
+    </div></div>
+
+    <div class="card"><div class="card-inner">
+      <div class="card-front"><img src="foto2.jpg"></div>
+      <div class="card-back">Contigo todo es más bonito 🌹</div>
+    </div></div>
+
+    <div class="card"><div class="card-inner">
+      <div class="card-front"><img src="foto3.jpg"></div>
+      <div class="card-back">Te amo más de lo que imaginas ✨</div>
+    </div></div>
+
+    <!-- Tarjeta 4 bloqueada -->
+    <div class="card" id="lockedCard4" style="flex-basis:100%; display:flex; justify-content:center;">
+      <div class="locked-badge">🔒 Protegida</div>
+      <div class="card-inner" style="max-width:280px; margin:auto;" data-locked="true">
+        <div class="card-front"><img src="foto4.jpg"></div>
+        <div class="card-back">🌻 No serás espectadora mi amor, Estoy afuera, ábreme la puerta 🌻</div>
+      </div>
+    </div>
+
+    <!-- Tarjeta 5 bloqueada -->
+    <div class="card" id="lockedCard">
+      <div class="locked-badge">🔒 Protegida</div>
+      <div class="card-inner" data-locked="true">
+        <div class="card-front"><img src="foto5.jpg"></div>
+        <div class="card-back">💌 Mensaje secreto 💌</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal clave -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal">
+      <h3>Introduce la clave</h3>
+      <input id="claveInput" type="password" placeholder="Ingresa la clave">
+      <button id="submitClave">Abrir</button>
+      <button id="cancelClave" style="background:#777;">Cancelar</button>
+      <div class="hint">Pista: Te ire enviando acertijos, atenta!! 😉</div>
+    </div>
+  </div>
+
+  <!-- Pregunta especial -->
+  <div id="specialCard">
+    <h2>💖 ¿Quieres ser mi enamorada? 💖</h2>
+    <button id="btnSi">Sí</button>
+    <button id="btnNo">No</button>
+  </div>
+
+  <footer>
+    Con todo mi amor, para ti 💌
+  </footer>
+
+  <script>
+    const music = document.getElementById("bg-music");
+    const lockedCardInner = document.querySelector("#lockedCard .card-inner");
+    const lockedCard4Inner = document.querySelector("#lockedCard4 .card-inner");
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const claveInput = document.getElementById("claveInput");
+    const submitClave = document.getElementById("submitClave");
+    const cancelClave = document.getElementById("cancelClave");
+    const specialCard = document.getElementById("specialCard");
+    const btnSi = document.getElementById("btnSi");
+    const btnNo = document.getElementById("btnNo");
+
+    const CLAVE = "cuestiondetiempo";
+    const CLAVE4 = "elseñordelanoche";
+
+    function tryPlayMusic() {
+      if (music.paused) {
+        music.volume = 0.6;
+        music.play().catch(()=>{});
+      }
+    }
+
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", e => {
+        if (card.id === "lockedCard") {
+          if (lockedCardInner.dataset.locked === "true") {
+            modalBackdrop.style.display = "flex";
+            claveInput.value = "";
+            claveInput.dataset.target = "lockedCard";
+            claveInput.focus();
+            e.stopPropagation();
+          }
+        } else if (card.id === "lockedCard4") {
+          if (lockedCard4Inner.dataset.locked === "true") {
+            modalBackdrop.style.display = "flex";
+            claveInput.value = "";
+            claveInput.dataset.target = "lockedCard4";
+            claveInput.focus();
+            e.stopPropagation();
+          }
+        } else {
+          tryPlayMusic();
+          card.querySelector(".card-inner").classList.toggle("flipped");
+        }
+      });
+    });
+
+    submitClave.addEventListener("click", () => {
+      if (claveInput.dataset.target === "lockedCard" && claveInput.value.trim() === CLAVE) {
+        lockedCardInner.dataset.locked = "false";
+        document.querySelector("#lockedCard .locked-badge").remove();
+        modalBackdrop.style.display = "none";
+        tryPlayMusic();
+        specialCard.style.display = "block";
+      } else if (claveInput.dataset.target === "lockedCard4" && claveInput.value.trim() === CLAVE4) {
+        lockedCard4Inner.dataset.locked = "false";
+        document.querySelector("#lockedCard4 .locked-badge").remove();
+        modalBackdrop.style.display = "none";
+        tryPlayMusic();
+        lockedCard4Inner.classList.add("flipped");
+      } else {
+        claveInput.value = "";
+        claveInput.placeholder = "Clave incorrecta 😢";
+      }
+    });
+
+    cancelClave.addEventListener("click", ()=> modalBackdrop.style.display="none");
+
+    // Botón Sí → explotan corazones
+    btnSi.addEventListener("click", () => {
+      for (let i=0; i<40; i++) {
+        let heart = document.createElement("div");
+        heart.className = "explosion-heart";
+        heart.textContent = "❤️";
+        heart.style.left = (specialCard.offsetLeft + specialCard.offsetWidth/2) + "px";
+        heart.style.top = (specialCard.offsetTop + specialCard.offsetHeight/2) + "px";
+        heart.style.setProperty("--x", `${(Math.random()-0.5)*400}px`);
+        heart.style.setProperty("--y", `${(Math.random()-0.5)*400}px`);
+        document.body.appendChild(heart);
+        setTimeout(()=> heart.remove(), 1000);
+      }
+    });
+
+    // Botón No → se mueve
+    btnNo.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
+      const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
+      btnNo.style.position = "absolute";
+      btnNo.style.left = `${x}px`;
+      btnNo.style.top = `${y}px`;
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+

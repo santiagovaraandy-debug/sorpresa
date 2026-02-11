@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra Historia ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Estrellas de fondo */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* Partículas flotantes románticas */
+.particle {
+    position: absolute;
+    pointer-events: none;
+    animation: float-particle 15s infinite;
+}
+
+@keyframes float-particle {
+    0% {
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Libro/Página contenedor */
+.book-container {
+    perspective: 2000px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.page {
+    background: linear-gradient(135deg, #fff9f0 0%, #ffe8d6 100%);
+    padding: 60px 50px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 700px;
+    min-height: 500px;
+    box-shadow: 
+        0 30px 90px rgba(0, 0, 0, 0.5),
+        inset 0 0 30px rgba(255, 255, 255, 0.5);
+    position: relative;
+    transform-style: preserve-3d;
+    animation: pageFlip 1s ease-out;
+    border: 2px solid rgba(139, 69, 19, 0.2);
+}
+
+@keyframes pageFlip {
+    0% {
+        transform: rotateY(-90deg);
+        opacity: 0;
+    }
+    100% {
+        transform: rotateY(0);
+        opacity: 1;
+    }
+}
+
+/* Decoración de página */
+.page::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 1px solid rgba(139, 69, 19, 0.1);
+    border-radius: 15px;
+    pointer-events: none;
+}
+
+.page::after {
+    content: '♡';
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    font-size: 24px;
+    color: rgba(255, 105, 180, 0.3);
+}
+
+h2 {
+    color: #8b4513;
+    font-size: 32px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#contenido {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    position: relative;
+}
+
+#contenido p {
+    color: #5d4037;
+    font-size: 20px;
+    line-height: 1.8;
+    margin: 10px 0;
+    text-align: center;
+    font-family: 'Georgia', serif;
+}
+
+/* Estilos mejorados para fotos - Efecto Polaroid */
+.foto-container {
+    margin: 25px 0;
+    animation: photoAppear 1.2s ease-out;
+}
+
+@keyframes photoAppear {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.1) rotate(5deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.polaroid {
+    background: white;
+    padding: 15px;
+    padding-bottom: 50px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        0 2px 10px rgba(0, 0, 0, 0.1);
+    transform: rotate(-2deg);
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.05) translateY(-10px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+}
+
+.polaroid::after {
+    content: attr(data-caption);
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    right: 15px;
+    text-align: center;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 14px;
+    color: #666;
+}
+
+.foto {
+    width: 100%;
+    max-width: 400px;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+}
+
+.foto-pequena {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        inset 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: pulse 3s infinite;
+    transition: transform 0.3s ease;
+}
+
+.foto-pequena:hover {
+    transform: scale(1.15);
+}
+
+.fotos-pareja {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+.foto-final {
+    width: 100%;
+    max-width: 380px;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 8px solid white;
+    box-shadow: 
+        0 20px 60px rgba(255, 105, 180, 0.5),
+        0 0 80px rgba(255, 105, 180, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.5);
+    animation: rotateGlow 2s ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes rotateGlow {
+    0% {
+        transform: rotate(-180deg) scale(0);
+        opacity: 0;
+        filter: brightness(0);
+    }
+    60% {
+        transform: rotate(10deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(0) scale(1);
+        opacity: 1;
+        filter: brightness(1);
+    }
+}
+
+/* Botones mejorados */
+button {
+    padding: 18px 45px;
+    border: none;
+    border-radius: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+    color: white;
+    font-weight: 600;
+    font-family: 'Georgia', serif;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 
+        0 10px 30px rgba(192, 108, 132, 0.4),
+        inset 0 -3px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 
+        0 15px 40px rgba(192, 108, 132, 0.6),
+        inset 0 -3px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(-2px) scale(1.02);
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-group button {
+    flex: 1;
+    min-width: 140px;
+}
+
+#noBtn {
+    background: linear-gradient(135deg, #a8a8a8 0%, #6c6c6c 100%);
+    box-shadow: 
+        0 10px 30px rgba(108, 108, 108, 0.4),
+        inset 0 -3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Emojis animados */
+.emoji {
+    font-size: 80px;
+    margin: 25px 0;
+    animation: bounce 2s infinite, rotate 4s infinite;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+}
+
+@keyframes rotate {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Puntaje final mejorado */
+.puntaje {
+    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+    padding: 30px;
+    border-radius: 20px;
+    margin-top: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: pulse 2s infinite;
+}
+
+/* Galería estilo álbum */
+.galeria-album {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin: 30px 0;
+    width: 100%;
+    perspective: 1000px;
+}
+
+.polaroid-mini {
+    background: white;
+    padding: 10px;
+    padding-bottom: 35px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    transform: rotate(var(--rotation));
+    transition: all 0.4s ease;
+    animation: photoFall 0.8s ease-out;
+    animation-delay: var(--delay);
+    animation-fill-mode: backwards;
+}
+
+@keyframes photoFall {
+    0% {
+        transform: translateY(-500px) rotate(720deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0) rotate(var(--rotation));
+        opacity: 1;
+    }
+}
+
+.polaroid-mini:hover {
+    transform: rotate(0deg) scale(1.15);
+    z-index: 10;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.polaroid-mini img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Carta de amor final */
+.carta {
+    background: linear-gradient(135deg, #fff9f0 0%, #ffe8d6 100%);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 
+        0 15px 50px rgba(0, 0, 0, 0.3),
+        inset 0 0 30px rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(139, 69, 19, 0.2);
+    margin: 20px 0;
+    animation: unfoldLetter 1.5s ease-out;
+    position: relative;
+}
+
+@keyframes unfoldLetter {
+    0% {
+        transform: scaleY(0.1);
+        opacity: 0;
+    }
+    50% {
+        transform: scaleY(0.5);
+    }
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+}
+
+.carta::before {
+    content: '✉️';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 50px;
+    animation: bounce 2s infinite;
+}
+
+.carta p {
+    font-size: 18px;
+    line-height: 2;
+    color: #5d4037;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    margin: 15px 0;
+}
+
+.firma {
+    text-align: right;
+    font-size: 24px;
+    margin-top: 30px;
+    font-family: 'Brush Script MT', cursive;
+    color: #8b4513;
+}
+
+/* Confeti */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: var(--color);
+    position: absolute;
+    animation: confetti-fall 3s linear;
+    opacity: 0;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Control de música */
+.music-control {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px 20px;
+    border-radius: 50px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.music-control:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .page {
+        padding: 40px 30px;
+    }
+    
+    h2 {
+        font-size: 26px;
+    }
+    
+    button {
+        font-size: 18px;
+        padding: 15px 30px;
+    }
+    
+    .foto {
+        height: 280px;
+    }
+    
+    .foto-pequena {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .foto-final {
+        max-width: 300px;
+        height: 300px;
+    }
+    
+    .galeria-album {
+        grid-template-columns: 1fr;
+    }
+    
+    .emoji {
+        font-size: 60px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Estrellas de fondo -->
+<div class="stars" id="stars"></div>
+
+<!-- Control de música -->
+<div class="music-control" id="musicControl" onclick="toggleMusic()">
+    🎵
+</div>
+
+<!-- Audio de fondo (opcional) -->
+<audio id="bgMusic" loop>
+    <!-- Puedes agregar tu canción favorita aquí -->
+    <!-- <source src="tu-cancion.mp3" type="audio/mpeg"> -->
+</audio>
+
+<div class="book-container">
+    <div class="page">
+        <h2 id="titulo">Bienvenida a la historia más bonita que he vivido 💕</h2>
+        <div id="contenido">
+            <div class="emoji">📖</div>
+            <p style="font-size: 18px; color: #666; font-style: italic;">
+                Prepárate para un viaje por nuestros momentos juntos...
+            </p>
+            <button onclick="siguiente()">Abrir el libro de nuestra historia</button>
+        </div>
+    </div>
+</div>
+
+<script>
+
+// Crear estrellas en el fondo
+const starsContainer = document.getElementById('stars');
+for(let i = 0; i < 100; i++) {
+    let star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    starsContainer.appendChild(star);
+}
+
+// Crear partículas flotantes
+for(let i = 0; i < 20; i++) {
+    let particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.innerHTML = ['💕', '💖', '✨', '⭐', '💫'][Math.floor(Math.random() * 5)];
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.fontSize = (Math.random() * 20 + 10) + 'px';
+    particle.style.animationDelay = Math.random() * 15 + 's';
+    particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+    document.body.appendChild(particle);
+}
+
+// Variables del juego
+let paso = 0;
+let puntos = 0;
+let musicPlaying = false;
+
+// Control de música
+function toggleMusic() {
+    const music = document.getElementById('bgMusic');
+    const control = document.getElementById('musicControl');
+    if (musicPlaying) {
+        music.pause();
+        control.innerHTML = '🎵';
+        musicPlaying = false;
+    } else {
+        music.play();
+        control.innerHTML = '🔊';
+        musicPlaying = true;
+    }
+}
+
+// Configuración de fotos
+// Las fotos están en la carpeta ARIANA
+const FOTOS = {
+    ella: "ARIANA/foto_ella.jpg",
+    tu: "ARIANA/foto_yo.jpg",
+    primeraSalida: "ARIANA/primera_cita.jpg",
+    momento1: "ARIANA/momento1.jpg",
+    momento2: "ARIANA/momento2.jpg",
+    momento3: "ARIANA/momento3.jpg",
+    momento4: "ARIANA/momento4.jpg",
+    momento5: "ARIANA/momento5.jpg",
+    juntos: "ARIANA/nosotros.jpg"
+};
+
+function siguiente() {
+    paso++;
+    const titulo = document.getElementById("titulo");
+    const contenido = document.getElementById("contenido");
+    
+    // Animación de cambio de página
+    const page = document.querySelector('.page');
+    page.style.animation = 'pageFlip 1s ease-out';
+
+    if (paso === 1) {
+        titulo.innerText = "Todo comenzó cuando el universo conspiró para que te conociera...";
+        contenido.innerHTML = `
+            <div class="foto-container">
+                <div class="polaroid" data-caption="Mi persona favorita ❤️">
+                    <img src="${FOTOS.ella}" class="foto" alt="Ella">
+                </div>
+            </div>
+            <p style="font-style: italic;">Y desde ese momento, todo cambió.</p>
+            <button onclick="siguiente()">Siguiente capítulo</button>
+        `;
+    }
+    else if (paso === 2) {
+        titulo.innerText = "Descubrí a alguien con un corazón tan grande como su amor por BLACKPINK 💖";
+        contenido.innerHTML = `
+            <div class="emoji">🎵</div>
+            <div class="foto-container">
+                <div class="polaroid" data-caption="Nuestra playlist ♪">
+                    <img src="${FOTOS.momento1}" class="foto" alt="Música">
+                </div>
+            </div>
+            <p>Especialmente Lisa... y yo especialmente tú.</p>
+            <button onclick="siguiente()">Continuar leyendo</button>
+        `;
+    }
+    else if (paso === 3) {
+        titulo.innerText = "Esa canción de Bruno Mars con Rosé que nos define 🎶";
+        contenido.innerHTML = `
+            <div class="emoji">💕</div>
+            <p style="font-size: 22px; line-height: 2;">
+                "APT" no es solo una canción...<br>
+                Es el soundtrack de cuando estamos juntos.<br>
+                Es nuestra melodía.
+            </p>
+            <button onclick="siguiente()">Siguiente</button>
+        `;
+    }
+    else if (paso === 4) {
+        titulo.innerText = "Tu voz cantando Olivia Rodrigo y Ariana Grande es mi canción favorita 🎤";
+        contenido.innerHTML = `
+            <div class="foto-container">
+                <div class="polaroid" data-caption="Mi estrella ⭐">
+                    <img src="${FOTOS.momento2}" class="foto" alt="Cantando">
+                </div>
+            </div>
+            <p>Cantas como si estuvieras en un concierto...<br>Y yo soy tu fan número uno.</p>
+            <button onclick="siguiente()">Más...</button>
+        `;
+    }
+    else if (paso === 5) {
+        titulo.innerText = "Esas lágrimas con las canciones de Rosé que me enseñaron cuán puro es tu corazón 💗";
+        contenido.innerHTML = `
+            <div class="emoji">🌹</div>
+            <p style="font-size: 20px; line-height: 2.2;">
+                No hay nada más hermoso que alguien que siente tan profundo.<br>
+                Tu sensibilidad es uno de los tesoros más preciosos que tienes.<br>
+                Y me enamora cada día más.
+            </p>
+            <button onclick="siguiente()">Continuar</button>
+        `;
+    }
+    else if (paso === 6) {
+        titulo.innerText = "Viendo a Ariana y The Weeknd, viviendo cada canción como una película 🎬";
+        contenido.innerHTML = `
+            <div class="foto-container">
+                <div class="polaroid" data-caption="Nuestros momentos 🎬">
+                    <img src="${FOTOS.momento3}" class="foto" alt="Momentos">
+                </div>
+            </div>
+            <p>Cada canción es una historia...<br>Y nuestra historia es mi favorita.</p>
+            <button onclick="siguiente()">Siguiente</button>
+        `;
+    }
+    else if (paso === 7) {
+        titulo.innerText = "Aparentas ser una niña malota 😈... pero eres el amor más dulce que existe 💝";
+        contenido.innerHTML = `
+            <div class="fotos-pareja">
+                <img src="${FOTOS.ella}" class="foto-pequena" alt="Ella">
+                <div class="emoji" style="margin: 0; font-size: 50px;">💘</div>
+                <img src="${FOTOS.tu}" class="foto-pequena" alt="Tú">
+            </div>
+            <p style="font-size: 22px;">
+                Detrás de esa actitud, hay un corazón de oro.<br>
+                Y ese corazón... es mío favorito en todo el mundo.
+            </p>
+            <button onclick="pregunta1()">Ahora viene lo divertido 😏</button>
+        `;
+    }
+}
+
+function pregunta1() {
+    document.getElementById("titulo").innerText = "💭 Primera pregunta: ¿Recuerdas dónde fue nuestra primera salida?";
+    document.getElementById("contenido").innerHTML = `
+        <div class="foto-container">
+            <div class="polaroid" data-caption="El día que todo empezó 💫">
+                <img src="${FOTOS.primeraSalida}" class="foto" alt="Primera salida">
+            </div>
+        </div>
+        <div class="button-group">
+            <button onclick="verificar1(1)">En el parque</button>
+            <button onclick="verificar1(2)">En un restaurante</button>
+            <button onclick="verificar1(3)">Cinema</button>
+        </div>
+        <p style="font-size: 14px; color: #999; margin-top: 20px;">
+            (Pista: ese día estaba más nervioso que Malcolm 😭)
+        </p>
+    `;
+}
+
+function verificar1(opcion) {
+    if (opcion === 3) { // Cambia el número según la respuesta correcta
+        puntos++;
+        crearConfeti();
+        setTimeout(() => {
+            alert("¡Exacto! 💕 Obvio que lo recordarías... ese día cambió todo para mí ❤️");
+            pregunta2();
+        }, 500);
+    } else {
+        alert("Mmm... 🤔 Creo que necesitas repasar nuestra historia (o más citas conmigo 😌)");
+        pregunta2();
+    }
+}
+
+function pregunta2() {
+    document.getElementById("titulo").innerText = "💭 Segunda pregunta: ¿Cuál es NUESTRA canción?";
+    document.getElementById("contenido").innerHTML = `
+        <div class="emoji">🎵</div>
+        <p style="font-size: 18px; color: #666;">
+            Esa que dijimos que siempre nos recordará a nosotros...
+        </p>
+        <div class="button-group">
+            <button onclick="verificar2(1)">Drivers License</button>
+            <button onclick="verificar2(2)">Die For You</button>
+            <button onclick="verificar2(3)">APT - Bruno Mars & Rosé</button>
+        </div>
+    `;
+}
+
+function verificar2(opcion) {
+    if (opcion === 3) {
+        puntos++;
+        crearConfeti();
+        setTimeout(() => {
+            alert("¡Perfecto! 💗 Esa canción siempre me hará pensar en ti...");
+            pregunta3();
+        }, 500);
+    } else {
+        alert("Auch 😅 Esa duele... pero igual te amo");
+        pregunta3();
+    }
+}
+
+function pregunta3() {
+    document.getElementById("titulo").innerText = "💭 Última pregunta: ¿Quién es más como Lois cuando se enoja? 😌";
+    document.getElementById("contenido").innerHTML = `
+        <div class="fotos-pareja">
+            <img src="${FOTOS.ella}" class="foto-pequena" alt="Ella">
+            <img src="${FOTOS.tu}" class="foto-pequena" alt="Tú">
+        </div>
+        <p style="font-size: 16px; color: #666;">
+            (Responde con honestidad... o habrá consecuencias 😏)
+        </p>
+        <div class="button-group">
+            <button onclick="verificar3(1)">Definitivamente tú</button>
+            <button onclick="verificar3(2)">Obviamente yo</button>
+            <button onclick="verificar3(3)">Ambos, pero siempre con amor ❤️</button>
+        </div>
+    `;
+}
+
+function verificar3(opcion) {
+    if (opcion === 3) {
+        puntos++;
+        crearConfeti();
+        setTimeout(() => {
+            alert("¡Correctísimo! 😌 Pero siempre nos arreglamos con amor 💕");
+            galeriaMomentos();
+        }, 500);
+    } else {
+        alert("Respuesta... interesante 🤨 Pero bueno, sigues siendo mi favorita");
+        galeriaMomentos();
+    }
+}
+
+function galeriaMomentos() {
+    document.getElementById("titulo").innerText = "Nuestros momentos... cada uno más especial que el anterior 📸";
+    document.getElementById("contenido").innerHTML = `
+        <div class="galeria-album">
+            <div class="polaroid-mini" style="--rotation: -3deg; --delay: 0s;">
+                <img src="${FOTOS.momento1}" alt="Recuerdo 1">
+            </div>
+            <div class="polaroid-mini" style="--rotation: 2deg; --delay: 0.2s;">
+                <img src="${FOTOS.momento2}" alt="Recuerdo 2">
+            </div>
+            <div class="polaroid-mini" style="--rotation: -2deg; --delay: 0.4s;">
+                <img src="${FOTOS.momento3}" alt="Recuerdo 3">
+            </div>
+            <div class="polaroid-mini" style="--rotation: 3deg; --delay: 0.6s;">
+                <img src="${FOTOS.primeraSalida}" alt="Recuerdo 4">
+            </div>
+        </div>
+        <p style="font-size: 20px; color: #8b4513; font-weight: 600; margin-top: 20px;">
+            Pero sabes qué... nada de esto importa tanto como la siguiente pregunta...
+        </p>
+        <button onclick="preguntaFinal()">💝 Ver la pregunta más importante</button>
+    `;
+}
+
+function preguntaFinal() {
+    document.getElementById("titulo").innerText = "¿Quieres ser mi San Valentín? 💖";
+    document.getElementById("contenido").innerHTML = `
+        <div class="foto-container">
+            <img src="${FOTOS.juntos}" class="foto-final" alt="Nosotros">
+        </div>
+        <p style="font-size: 22px; margin: 20px 0; color: #8b4513;">
+            No importa el puntaje que sacaste...<br>
+            Lo único que importa es tu respuesta a esto:
+        </p>
+        <div class="button-group">
+            <button onclick="aceptar()" style="background: linear-gradient(135deg, #ff6b9d 0%, #ff1744 100%);">
+                ¡Sí! 💕
+            </button>
+            <button id="noBtn" onmouseover="moverBoton()">
+                No 😈
+            </button>
+        </div>
+    `;
+}
+
+function moverBoton() {
+    const btn = document.getElementById("noBtn");
+    btn.style.position = "fixed";
+    btn.style.top = Math.random() * (window.innerHeight - 100) + "px";
+    btn.style.left = Math.random() * (window.innerWidth - 200) + "px";
+    btn.style.zIndex = "1000";
+    
+    // Cambiar el texto del botón para hacerlo más divertido
+    const textos = [
+        "¿Segura? 🤔",
+        "Piénsalo bien...",
+        "Dale una oportunidad 🥺",
+        "¿De verdad? 😢",
+        "Última oportunidad...",
+        "¡Vamos! 💕"
+    ];
+    btn.innerText = textos[Math.floor(Math.random() * textos.length)];
+}
+
+function aceptar() {
+    // Crear confeti masivo
+    for(let i = 0; i < 100; i++) {
+        setTimeout(() => crearConfeti(), i * 30);
+    }
+    
+    document.getElementById("titulo").innerText = "¡Lo sabía! Sabía que dirías que sí 😏💕";
+    document.getElementById("contenido").innerHTML = `
+        <div class="foto-container">
+            <img src="${FOTOS.juntos}" class="foto-final" alt="Nosotros juntos">
+        </div>
+        
+        <div class="carta">
+            <p>Mi amor,</p>
+            <p>
+                Cada día contigo es un regalo. Eres la persona que hace que todo tenga sentido,
+                la que convierte los momentos simples en recuerdos inolvidables.
+            </p>
+            <p>
+                Tu risa es mi canción favorita, tus abrazos mi lugar seguro,
+                y tu amor, el regalo más grande que he recibido.
+            </p>
+            <p>
+                Gracias por ser tú, por ser mía, por ser mi persona favorita en todo el universo.
+            </p>
+            <p class="firma">
+                Con todo mi amor,<br>
+                Tu enamorado 💕
+            </p>
+        </div>
+        
+        <div class="puntaje">
+            Puntaje final: ${puntos}/3 ⭐
+        </div>
+        
+        <p style="font-size: 18px; color: #666; margin-top: 25px; font-style: italic;">
+            Pero honestamente... eres 100/10 perfecta para mí 🥰
+        </p>
+        
+        <p style="font-size: 16px; color: #999; margin-top: 20px;">
+            Te amo más de lo que las palabras pueden expresar 💖
+        </p>
+    `;
+}
+
+function crearConfeti() {
+    const colores = ['#ff6b9d', '#c06c84', '#ffd89b', '#19547b', '#f5576c', '#667eea'];
+    for(let i = 0; i < 30; i++) {
+        let confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.setProperty('--color', colores[Math.floor(Math.random() * colores.length)]);
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '-10px';
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
